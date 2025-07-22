@@ -12,10 +12,7 @@ public class Product {
     private Long price;
     private String name;
 
-    public Product(Integer id, Long price, String name) {
-        this.id = id;
-        this.price = price;
-        this.name = name;
+    public Product() {
     }
 
     public Integer getId() {
