@@ -4,7 +4,6 @@ import com.enzoprevitale.api_spring.dtos.ProductDto;
 import com.enzoprevitale.api_spring.model.Product;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,5 +49,16 @@ public class ProductController {
         }
         repository.delete(product.get());
         return ResponseEntity.status(HttpStatus.FOUND).body(product.get());
+    }
+
+    @PutMapping("/{id}") // Mapeia métodos PUT
+    public ResponseEntity putProduct(@PathVariable(value = "id") Integer id, @RequestBody ProductDto dto) {
+        Optional<Product> product = repository.findById(id); // Acha o registro com o ID especificado
+        if(product.isEmpty()) { // Verifica se aquele registro existe
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not Found");
+        }
+        Product productModel = product.get(); // Regata o modelo do produto existente
+        BeanUtils.copyProperties(dto, productModel); // Passa os valores de DTO para productModel
+        return ResponseEntity.status(HttpStatus.OK).body(repository.save(productModel));
     }
 }
