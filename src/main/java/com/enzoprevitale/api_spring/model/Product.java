@@ -7,10 +7,10 @@ import jakarta.persistence.*;
 public class Product {
 
     @Id // Marca o atributo como Primary Key
-    @GeneratedValue(strategy = GenerationType.AUTO) // Indica que o valor será gerado automaticamente
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Indica que o valor será gerado automaticamente
     private Integer id; // Integer, String e Long são objetos
-    private Long price;
     private String name;
+    private Long price;
 
     public Product() {
     }
@@ -23,19 +23,19 @@ public class Product {
         this.id = id;
     }
 
-    public Long getPrice() {
-        return price;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
     }
 }
